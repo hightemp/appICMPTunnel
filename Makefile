@@ -1,9 +1,9 @@
-.PHONY: all icmptunnel
+.PHONY: all sniffer
 
-all: icmptunnel
+all: sniffer
 
-icmptunnel:
-	g++ -std=c++11 icmptunnel.cpp -o icmptunnel
+sniffer:
+	g++ -std=c++11 sniffer.cpp -o sniffer
 
 %: %.cpp
 	g++ -std=c++11 $< -o $@
