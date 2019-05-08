@@ -1,0 +1,155 @@
+/*
+ * Copyright (C) 2018 Tempow
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#pragma once
+
+/*!@file tcl/conf.h
+ * @author uael
+ */
+#ifndef __TCL_CONF_H
+# define __TCL_CONF_H
+
+#ifndef HAS_BZERO
+#cmakedefine HAS_BZERO
+#endif
+#ifndef HAS_FREE
+#cmakedefine HAS_FREE
+#endif
+#ifndef HAS_REALLOC
+#cmakedefine HAS_REALLOC
+#endif
+#ifndef HAS_STRNLEN
+#cmakedefine HAS_STRNLEN
+#endif
+#ifndef HAS_STRLCPY
+#cmakedefine HAS_STRLCPY
+#endif
+#ifndef HAS_STRNCPY
+#cmakedefine HAS_STRNCPY
+#endif
+#ifndef HAS_SIGALTSTACK
+#cmakedefine HAS_SIGALTSTACK
+#endif
+#ifndef HAS_MMAP
+#cmakedefine HAS_MMAP
+#endif
+#ifndef HAS_MUNMAP
+#cmakedefine HAS_MUNMAP
+#endif
+#ifndef HAS_MPROTECT
+#cmakedefine HAS_MPROTECT
+#endif
+#ifndef HAS_SYSCONF
+#cmakedefine HAS_SYSCONF
+#endif
+#ifndef HAS_GETPAGESIZE
+#cmakedefine HAS_GETPAGESIZE
+#endif
+#ifndef HAS_USLEEP
+#cmakedefine HAS_USLEEP
+#endif
+
+#ifndef HAS_SYS_EVENTFD_H
+#cmakedefine HAS_SYS_EVENTFD_H
+#endif
+#ifndef HAS_SYS_EPOLL_H
+#cmakedefine HAS_SYS_EPOLL_H
+#endif
+#ifndef HAS_SYS_TIME_H
+#cmakedefine HAS_SYS_TIME_H
+#endif
+#ifndef HAS_SYS_TYPES_H
+#cmakedefine HAS_SYS_TYPES_H
+#endif
+#ifndef HAS_SYS_PRCTL_H
+#cmakedefine HAS_SYS_PRCTL_H
+#endif
+#ifndef HAS_SYS__SYSTEM_PROPERTIES_H
+#cmakedefine HAS_SYS__SYSTEM_PROPERTIES_H
+#endif
+#ifndef HAS_PTHREAD_H
+#cmakedefine HAS_PTHREAD_H
+#endif
+#ifndef HAS_UNISTD_H
+#cmakedefine HAS_UNISTD_H
+#endif
+#ifndef HAS_FCNTL_H
+#cmakedefine HAS_FCNTL_H
+#endif
+#ifndef HAS_TIME_H
+#cmakedefine HAS_TIME_H
+#endif
+#ifndef HAS_SIGNAL_H
+#cmakedefine HAS_SIGNAL_H
+#endif
+#ifndef HAS_INTTYPES_H
+#cmakedefine HAS_INTTYPES_H
+#endif
+#ifndef HAS_STDBOOL_H
+#cmakedefine HAS_STDBOOL_H
+#endif
+#ifndef HAS_STDINT_H
+#cmakedefine HAS_STDINT_H
+#endif
+#ifndef HAS_STRINGS_H
+#cmakedefine HAS_STRINGS_H
+#endif
+#ifndef HAS_UCONTEXT_H
+#cmakedefine HAS_UCONTEXT_H
+#endif
+#ifndef HAS_SETJMP_H
+#cmakedefine HAS_SETJMP_H
+#endif
+
+#cmakedefine CORO_X86_64
+#cmakedefine CORO_X86_32
+#cmakedefine CORO_UCONTEXT
+#cmakedefine CORO_WIN
+#cmakedefine CORO_SJLJ
+
+#ifndef NDEBUG
+# include <assert.h>
+#endif
+
+#ifndef TCL_LOGGING
+#cmakedefine TCL_LOGGING
+#endif
+
+#ifndef TCL_THREADING
+#cmakedefine TCL_THREADING
+#endif
+
+#ifdef TCL_THREADING
+# include <pthread.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/epoll.h>
+# include <sys/eventfd.h>
+# include <sys/prctl.h>
+# if defined(HAS_TIME_H) && defined(HAS_SIGNAL_H) && defined(_POSIX_C_SOURCE) \
+  && _POSIX_C_SOURCE >= 199309L
+#   define HAS_TIMER
+#   include <signal.h>
+#   include <time.h>
+# endif
+#endif
+
+#ifndef INVALID_FD
+# define INVALID_FD (-1)
+#endif
+
+#endif /* __TCL_CONF_H */
+
