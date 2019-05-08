@@ -21,6 +21,20 @@ FILE *logfile;
 int tcp=0,udp=0,icmp=0,others=0,igmp=0,total=0,i,j;
 struct sockaddr_in source,dest;
 
+/*
+The above sniffer picks up only TCP packets, because of the declaration :
+
+sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_TCP);
+For UDP and ICMP the declaration has to be :
+
+sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_UDP);
+sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_ICMP);
+You might be tempted to think of doing :
+
+sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_IP);
+but this will not work , since IPPROTO_IP is a dummy protocol not a real one.
+ */
+
 int main()
 {
 	socklen_t saddr_size;
@@ -34,7 +48,7 @@ int main()
 	if(logfile==NULL) printf("Unable to create file.");
 	printf("Starting...\n");
 	//Create a raw socket that shall sniff
-	sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_TCP);
+	sock_raw = socket(AF_INET , SOCK_RAW , IPPROTO_ICMP);
 	if(sock_raw < 0)
 	{
 		printf("Socket Error\n");
